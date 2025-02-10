@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 import subprocess
 import sys
+import os
 
 def check_package(package):
     try:
         if sys.platform.startswith('linux'):
-            # Try using pkg-config to check for X11 libraries
             subprocess.check_call(['pkg-config', '--exists', package])
             print(f"✓ {package} is installed")
             return True
@@ -13,12 +13,20 @@ def check_package(package):
         print(f"✗ {package} is not installed")
         return False
 
+def check_wayland_socket():
+    wayland_display = os.environ.get('WAYLAND_DISPLAY')
+    if wayland_display:
+        print("✓ Wayland session detected")
+        return True
+    print("✗ No Wayland session detected")
+    return False
+
 def main():
     required_packages = [
-        'xcb',
-        'cairo',
-        'xorg-server',
-        'x11'
+        'wayland-server',
+        'wayland-client',
+        'wayland-protocols',
+        'cairo'
     ]
     
     missing = False
@@ -26,12 +34,14 @@ def main():
         if not check_package(package):
             missing = True
             
+    check_wayland_socket()
+            
     if missing:
         print("\nPlease install missing dependencies:")
         print("For Debian/Ubuntu:")
-        print("sudo apt-get install libx11-dev libcairo2-dev libxcb-composite0-dev xorg")
+        print("sudo apt-get install libwayland-dev wayland-protocols libcairo2-dev")
         print("\nFor Arch Linux:")
-        print("sudo pacman -S libx11 cairo xcb-util xorg-server")
+        print("sudo pacman -S wayland wayland-protocols cairo")
         sys.exit(1)
         
 if __name__ == "__main__":

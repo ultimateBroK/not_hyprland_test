@@ -1,6 +1,6 @@
 # Not Hyprland
 
-A minimal X11 window manager and compositor written in Python, inspired by Hyprland.
+A minimal Wayland compositor written in Python, inspired by Hyprland.
 
 ## Features
 - Basic window compositing
@@ -35,6 +35,32 @@ exec not-hyprland
 startx
 ```
 
+## Running from TTY (GNOME Session)
+
+1. Open a terminal and navigate to the project directory
+2. Make the run script executable:
+   ```bash
+   chmod +x scripts/run-in-tty.sh
+   ```
+3. Run the script:
+   ```bash
+   ./scripts/run-in-tty.sh
+   ```
+
+The script will:
+- Stop the GNOME Display Manager (GDM)
+- Switch to TTY2
+- Start the not-hyprland compositor
+
+To return to GNOME:
+- Press Ctrl+C to exit the compositor
+- The script will automatically restart GDM and return you to the GNOME session
+
+## Keyboard Shortcuts
+- Ctrl+Alt+F1: Return to GNOME TTY
+- Ctrl+Alt+F2: Switch to compositor TTY
+- Ctrl+C: Exit compositor and return to GNOME
+
 ## Development
 
 1. Create a virtual environment:
@@ -47,3 +73,4 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+````
