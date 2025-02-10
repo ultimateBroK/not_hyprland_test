@@ -1,0 +1,11 @@
+README.md
+setup.py
+not_hyprland.egg-info/PKG-INFO
+not_hyprland.egg-info/SOURCES.txt
+not_hyprland.egg-info/dependency_links.txt
+not_hyprland.egg-info/entry_points.txt
+not_hyprland.egg-info/requires.txt
+not_hyprland.egg-info/top_level.txt
+src/__init__.py
+src/compositor.py
+src/window_manager.py
